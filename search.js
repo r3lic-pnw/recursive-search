@@ -13,7 +13,7 @@ function search(folder) {
   }).catch(err => {
       console.error(error);
       return [];
-    }
+    })
 }
 
 module.exports = search;
