@@ -1,7 +1,15 @@
 const {readdir} = require("fs").promises;
 
-const folder = process.argv[2];
+function search(folder) {
+  return readdir(folder, { withFileTypes: true }).then(contents => {
+    return Promise.all(contents.map(item => {
+      if (item.isDirectory()) {
+        return search(item.path).then(subfileList => ({ path: item.path, subfiles: subfileList }));
+      } else {
+        return { path: folder, item };
+      }
+    }));
+  });
+}
 
-const fileList = await readdir(folder, withFileTypes);
-
-fileList.forEach(file => console.log(file);
+module.exports = search;
