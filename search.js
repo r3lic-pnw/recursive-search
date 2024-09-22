@@ -11,7 +11,7 @@ function search(folder) {
       }
     }))
   }).catch(err => {
-      console.error(error));
+      console.error(error);
       return [];
     }
 }
