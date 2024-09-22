@@ -10,7 +10,10 @@ function search(folder) {
         return { path: folder, item };
       }
     }))
-  }).catch(err => console.error(error));
+  }).catch(err => {
+      console.error(error));
+      return [];
+    }
 }
 
 module.exports = search;
