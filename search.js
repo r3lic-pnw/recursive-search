@@ -9,8 +9,8 @@ function search(folder) {
       } else {
         return { path: folder, item };
       }
-    })).catch(err => console.error(error));
-  });
+    }))
+  }).catch(err => console.error(error));
 }
 
 module.exports = search;
