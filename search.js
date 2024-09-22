@@ -1,19 +1,15 @@
-const {readdir} = require("fs").promises;
+const {readdir} = require('fs').promises;
 
-function search(folder) {
-  return readdir(folder, { withFileTypes: true }).then(contents => {
-    if (contents.length === 0) return[];
-    return Promise.all(contents.map(item => {
-      if (item.isDirectory()) {
-        return search(item.path).then(subfileList => ({ path: item.path, subfiles: subfileList }));
-      } else {
-        return { path: folder, item };
-      }
-    }))
-  }).catch(err => {
-      console.error(error);
-      return [];
-    })
+async function search (folder) {
+  const contents = await readdir(folder, {withFileTypes: true});
+
+  const files = contents.map(item => {
+    if (item.isDirectory()) {
+      search(item.path);
+    } else {return item;}
+  });
+
+  return files;
 }
 
 module.exports = search;
